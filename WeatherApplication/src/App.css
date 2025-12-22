@@ -1,0 +1,476 @@
+.Container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.BackgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+.ContainerCover {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.Header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 0.5%;
+}
+
+.Header img {
+  transition: opacity 0.7s ease-in-out;
+}
+
+.Header h1 {
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: -3%;
+}
+
+.Header p {
+  color: white;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 60%;
+}
+
+.InputPanel {
+  width: 30%;
+  min-width: 300px;
+  height: 10vh;
+  min-height: 60px;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+
+  transition: all 0.3s ease;
+}
+
+.InputPanel:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.InputPanel:focus-within {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 15px 45px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.InputPanel input {
+  width: 90%;
+  height: 7.5vh;
+  min-height: 50px;
+  text-align: start;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.InputPanel input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  font-family: 'Poppins', sans-serif;
+}
+
+.InputPanel button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 10px;
+  outline: none;
+}
+
+.InputPanel button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.InputPanel button:active {
+  transform: scale(0.95);
+}
+
+.InputPanel button img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 768px) {
+  .InputPanel {
+    width: 90%;
+    min-width: unset;
+    border-radius: 18px;
+    padding: 0 15px;
+  }
+
+  .InputPanel input {
+    font-size: 18px;
+    padding-left: 10px;
+  }
+
+  .InputPanel button {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .BackgroundVideo {
+    /* Alternative for mobile compatibility */
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .Header h1 {
+    font-size: 2.5rem;
+    /* Smaller text on mobile */
+  }
+
+  .ContainerCover {
+    backdrop-filter: blur(8px) saturate(160%);
+    /* Slightly less blur on mobile */
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+  }
+}
+
+/* ===================================================== */
+/* INPUT PANEL SHIFT (DISABLED – stays centered)         */
+/* ===================================================== */
+
+.InputPanel.shifted {
+  transform: none;
+}
+
+/* ===================================================== */
+/* FORECAST PANEL (BOTTOM SLIDE-UP)                      */
+/* ===================================================== */
+
+.ForecastPanel {
+  position: absolute;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  z-index: 3;
+
+  animation: forecastSlideUp 0.7s ease forwards;
+}
+
+@keyframes forecastSlideUp {
+  to {
+    bottom: 3%;
+  }
+}
+
+/* ===================================================== */
+/* DAY CARD (unchanged glass style)                      */
+/* ===================================================== */
+
+.DayCard {
+  min-width: 260px;
+  padding: 15px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  border-radius: 20px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.DayCard h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* ===================================================== */
+/* HOURLY FORECAST ROW                                   */
+/* ===================================================== */
+
+.HourlyRow {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+/* ===================================================== */
+/* HOURLY BLOCK                                          */
+/* ===================================================== */
+
+.HourBlock {
+  min-width: 65px;
+  padding: 8px;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.HourBlock p {
+  margin: 2px 0;
+}
+
+/* ===================================================== */
+/* MOBILE BEHAVIOR                                       */
+/* ===================================================== */
+
+@media (max-width: 768px) {
+
+  .ForecastPanel {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 20px;
+    animation: none;
+    overflow-x: auto;
+  }
+
+}
+
+
+/* ===================================================== */
+/* HEADER + INPUT RISE UP                                */
+/* ===================================================== */
+
+.Header.raised,
+.InputPanel.raised {
+  transform: translateY(-200px);
+  transition: transform 0.6s ease;
+}
+
+.Header.raised img {
+  opacity: 0;
+}
+
+/* ===================================================== */
+/* FORECAST BELOW HEADER                                 */
+/* ===================================================== */
+
+.ForecastPanel.below {
+  margin-top: -60px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 10px;
+  z-index: 3;
+}
+
+/* ===================================================== */
+/* WEATHER ICON                                          */
+/* ===================================================== */
+
+.WeatherIcon {
+  width: 80px;
+  display: block;
+  margin: 10px auto;
+}
+
+/* ===================================================== */
+/* TEMP & CONDITION                                      */
+/* ===================================================== */
+
+.Temp {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.Condition {
+  text-align: center;
+  opacity: 0.85;
+}
+
+/* ===================================================== */
+/* ERROR CARD                                            */
+/* ===================================================== */
+
+.ErrorCard {
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+
+  /* NEW: Position below InputPanel */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  min-width: 250px;
+  margin-top: -18%;
+}
+
+@media (max-width: 768px) {
+
+  /* Make ForecastPanel vertical */
+  .ForecastPanel.below {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  /* Make DayCard take more width on mobile */
+  .DayCard {
+    min-width: 80%;
+    margin-bottom: 15px;
+  }
+
+  /* Adjust ErrorCard to stay below InputPanel */
+  .ErrorCard {
+    top: auto;
+    bottom: -5%;
+    margin-top: 10px;
+    width: 90%;
+  }
+}
+
+/* Add these to your existing CSS without modifying existing rules */
+
+/* Mobile-specific adjustments */
+.mobile-input-panel {
+  width: 90% !important;
+  min-width: unset !important;
+}
+
+.desktop-input-panel {
+  width: 30% !important;
+  min-width: 300px !important;
+}
+
+.mobile-header {
+  font-size: 2.5rem !important;
+}
+
+.desktop-header {
+  font-size: 3.5rem !important;
+}
+
+/* Forecast panel responsive layouts */
+.forecast-mobile {
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  overflow-x: auto !important;
+  margin-top: 20px !important;
+}
+
+.forecast-desktop {
+  position: absolute !important;
+  bottom: -100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 90% !important;
+}
+
+/* Tablet-specific adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .desktop-input-panel {
+    width: 50% !important;
+  }
+
+  .DayCard {
+    min-width: 220px !important;
+  }
+}
+
+/* Large mobile adjustments */
+@media (max-width: 480px) {
+  .mobile-header {
+    font-size: 2rem !important;
+  }
+
+  .Header p {
+    font-size: 0.8rem !important;
+  }
+
+  .HourBlock {
+    min-width: 60px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* For smaller screens than 768px but larger than 480px */
+@media (max-width: 768px) and (min-width: 481px) {
+  .DayCard {
+    min-width: 70% !important;
+  }
+}
